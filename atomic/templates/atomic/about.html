@@ -8,7 +8,9 @@
         
         <p class="card-text myText">{{ text }}</p>
 
-        <a href="../" class="btn btn-primary">Let's go!</a>
+        <!-- <a href="../" class="btn btn-primary">Show my progress</a> -->
+        <a href="{% url 'atomic:index' %}"   class="btn btn-primary">Show my progress</a>
+        <a href="{% url 'atomic:tracker' %}" class="btn btn-secondary">Update data</a>
     </div>
 </div>
 
