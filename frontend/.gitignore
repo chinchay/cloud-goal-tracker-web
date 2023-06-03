@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# React
+# this will created when doing `npm install` to install dependencies
+package-lock.json
+# then you can do `npm start`

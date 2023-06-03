@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 
+import { ShowCalendar } from './Calendar';
+
 function App() {
   return (
     <div className="App">
@@ -17,6 +19,9 @@ function App() {
         >
           Learn React
         </a>
+
+        <ShowCalendar />
+
       </header>
     </div>
   );
