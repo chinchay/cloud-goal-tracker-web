@@ -1,7 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
 
-import { ShowCalendar } from './Calendar';
+// import { ShowCalendar } from './Calendar';
+
+import { GetRecords } from './Interface2Backend';
+
+// import { MyComponent } from './Interface2Backend';
+
+// function MyFun(){
+//     fun()
+//     return(
+//         <></>
+//     )
+// }
 
 function App() {
   return (
@@ -20,7 +31,13 @@ function App() {
           Learn React
         </a>
 
-        <ShowCalendar />
+        {/* <ShowCalendar /> */}
+
+        <GetRecords />
+
+        {/* <MyFun /> */}
+
+        {/* <MyComponent /> */}
 
       </header>
     </div>
