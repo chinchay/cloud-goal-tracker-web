@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "atomic"
+    "atomic",
+    "corsheaders", # see message(1) at the bottom
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",  # see message(1) at the bottom
 ]
 
 ROOT_URLCONF = 'habit_tracker.urls'
@@ -122,3 +124,20 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+################################################################################
+CORS_ORIGIN_WHITELIST = [
+     'http://localhost:3000'
+]
+# Message(1):
+# To avoid responses being blocked, we use `CORS_ORIGIN_WHITELIST` (see above).
+# https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react
+#
+# http://127.0.0.1:8000/ is the Django backend `python manage.py runserver`
+# or
+# http://localhost:8000/ is the Django backend `python manage.py runserver`
+#
+# http://localhost:3000 is the React fronted, `npm start`
+################################################################################
+
