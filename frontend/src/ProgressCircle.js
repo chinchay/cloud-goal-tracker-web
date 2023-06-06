@@ -11,7 +11,7 @@ class ProgressCircle extends React.Component {
 
       this.state = {
       
-        series: [50],
+        series: [props.percentage],
         options: {
           chart: {
             // height: 350,

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from .Database import Database
 from time import sleep
+import pandas as pd
 
 import pandas as pd
 
@@ -18,6 +19,12 @@ def about(request):
     # return HttpResponse(text)
     return render(request, "atomic/about.html", {"text":text})
 
+def getTodayPercentage(df, listHabit):
+    todayString = pd.to_datetime("today").strftime("%Y/%m/%d")
+    todayCounts = df[ df["date"] == todayString  ].drop(["date"], axis=1).astype(int).sum(axis=1).tolist()[0]
+    percentage  = 100 * todayCounts / len(listHabit)
+    return percentage
+
 def api(request):
     # tableName = "atomic_table"
     # database = Database(tableName)
@@ -27,7 +34,7 @@ def api(request):
     ############################################################################
     # you will need to remove this part later
     ############################################################################
-    data = {"date": {"0": "2023-05-01T00:00:00", "1": "2023-05-02T00:00:00", "2": "2023-05-30T00:00:00", "3": "2023-05-31T00:00:00", "4": "2023-06-01T00:00:00"}, "write_journal": {"0": "1", "1": "1", "2": "0", "3": "1", "4": "1"}, "read_scriptures": {"0": "1", "1": "1", "2": "1", "3": "0", "4": "1"}}
+    data = {"date": {"0": "2023-05-06T00:00:00", "1": "2023-05-02T00:00:00", "2": "2023-06-06T00:00:00", "3": "2023-05-31T00:00:00", "4": "2023-06-01T00:00:00"}, "Scriptures_Reading": {"0": "1", "1": "1", "2": "1", "3": "1", "4": "1"}, "Exercising": {"0": "1", "1": "1", "2": "0", "3": "1", "4": "1"}, "Journal_Writing": {"0": "1", "1": "1", "2": "1", "3": "0", "4": "1"}}
     df = pd.DataFrame(data)
     df["date"] = pd.to_datetime(df.date)
     ############################################################################
@@ -36,7 +43,7 @@ def api(request):
     key = "date"
     df[key] = df.date.dt.strftime("%Y/%m/%d")
 
-    listHabit = df.drop([key], axis=1).columns.to_list()
+    listHabit = df.drop([key], axis=1).columns.to_list()    
     listRecord = []
     for habit in listHabit:
         df_habit = pd.DataFrame()
@@ -44,8 +51,11 @@ def api(request):
         df_habit["count"] = df[habit]
         dict_habit = df_habit.to_dict("records")
         listRecord.append(dict_habit)
+        #
+        
     #
-    data = {"listHabit":listHabit, "listRecord":listRecord}
+    percentage = getTodayPercentage(df, listHabit)
+    data = {"listHabit":listHabit, "listRecord":listRecord, "percentage":percentage}
 
     # print(pd.to_datetime(df.date, format='%Y%m%d'))
 

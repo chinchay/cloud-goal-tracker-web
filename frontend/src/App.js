@@ -8,6 +8,18 @@ import { useState } from 'react'
 import { Request2Backend } from './Connect2Backend';
 import { BuildCalendar } from './Calendar';
 
+function ShowProgressCircle(props){
+    if (props.response === null) {
+        return(
+            <div className='habitName'>Loading...</div>
+        )
+    } else {
+        return(
+            <ProgressCircle percentage={props.response.percentage}/>
+        )
+    }
+}
+
 function App() {
 
     const response = Request2Backend()
@@ -27,7 +39,7 @@ function App() {
             <section className='content'>
 
                 <div className='semicircle'>
-                    <ProgressCircle />
+                    <ShowProgressCircle response={response}/>
                 </div>
 
                 <div className="row mb-1">
