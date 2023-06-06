@@ -1,102 +1,73 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-// import logo from './logo.svg';
 import './App.css';
-
-// import { ShowCalendar } from './Calendar';
-
-// import { GetRecords } from './Interface2Backend';
-import Semicircle from './Semicircle';
-
-
-
-// import { MyComponent } from './Interface2Backend';
-
-// function MyFun(){
-//     fun()
-//     return(
-//         <></>
-//     )
-// }
+import ProgressCircle from './ProgressCircle';
+import Modal from 'react-bootstrap/Modal'
+import { useState } from 'react'
+import { Request2Backend } from './Connect2Backend';
+import { BuildCalendar } from './Calendar';
 
 function App() {
 
-    // const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
-    // const buttonInstance = (
-    //     <div className="well" style={wellStyles}>
-    //     <Button variant="secondary" bsSize="xsmall" >Scriptures Reading</Button>
-    //     <Button variant="secondary" bsSize="xsmall">Journal Writing</Button>
-    //     <Button variant="secondary" bsSize="xsmall">Exercising</Button>
-    //     <Button variant="secondary" bsSize="xsmall">See my stats</Button>
-    //     </div>
-    // )
+    const response = Request2Backend()
+    // console.log(response)
+
+    const [showStats, SetShowStats] = useState(false)
 
     return (
         <div className="App">
 
-        <header className="App-header">
-        {/* <header className='theHeader'> */}
-
-            <h1 className='aTitle'>Habit Tracker</h1>
-            <p className='aSubtitle'>Achieve your goals every day, and see your stats soar</p>
-
-        </header>
+            <header className="App-header">
+                <h1 className='aTitle'>Habit Tracker</h1>
+                <p className='aSubtitle'>Achieve your goals every day, and see your stats soar</p>
+            </header>
 
 
-        <section className='content'>
-            <div className='semicircle'>
-                <Semicircle />
-            </div>
+            <section className='content'>
+
+                <div className='semicircle'>
+                    <ProgressCircle />
+                </div>
+
+                <div className="row mb-1">
+                    <div className="col-4"></div>
+                        <div className="col-4 d-grid gap-2">
+                            <Button className="aButton" variant="secondary" >Scriptures Reading</Button>
+                            <Button className="aButton" variant="secondary" >Journal Writing</Button>
+                            <Button className="aButton" variant="secondary" >Exercising</Button>
+                            <Button className="aButton" variant="secondary" onClick={()=>{SetShowStats(true)}} >See my stats</Button>
+                        </div>
+                    <div className="col"></div>
+                </div>
+
+                <BuildCalendar response={response} width={300} months={4}/>
+
+                <div className='calendarModal'>
+                    <Modal
+                        scrollable      = {true}
+                        show={showStats}
+                        onHide          = {()=>SetShowStats(false)}
+                        // centered size   = "xl"
+                    >
+                        <Modal.Header>
+                            <Modal.Title>My stats for the current year</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <BuildCalendar response={response} width={800} months={12}/>
+
+                        </Modal.Body>
 
 
-            <div className="row mb-1">
-                <div className="col-4"></div>
-                    <div className="col-4 d-grid gap-2">
-                        <Button className="aButton" variant="secondary" bsSize="xsmall">Scriptures Reading</Button>
-                        <Button className="aButton" variant="secondary" >Journal Writing</Button>
-                        <Button className="aButton" variant="secondary" >Exercising</Button>
-                        <Button className="aButton" variant="secondary" >See my stats</Button>
-                    </div>
-                <div className="col"></div>
-            </div>
+                    </Modal>
 
-        </section>
+                </div>
 
+                {/* <GetRecords /> */}
 
-{/* 
-        <Button
-            // onPress={onPressLearnMore}
-            // title="Learn More"
-            // color="#841584"
-            // accessibilityLabel="Learn more about this purple button"
-        /> */}
+            </section>
 
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        
-        
-        {/* <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> */}
-        {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-
-        {/* <ShowCalendar /> */}
-
-        {/* <GetRecords /> */}
-
-        {/* <MyFun /> */}
-
-        {/* <MyComponent /> */}
-
-      {/* </header> */}
     </div>
   );
 }
