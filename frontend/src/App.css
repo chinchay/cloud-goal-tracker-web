@@ -1,5 +1,16 @@
 .App {
   text-align: center;
+  /* border-style: solid; */
+  /* border-color: blue; */
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #282c34;
+  font-family: Helvetica;
+  
+}
+
+.aTitle{
+  font-weight: bold;  
 }
 
 .App-logo {
@@ -15,12 +26,16 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  /* border-style: solid; */
+  /* border-color: blue; */
+  padding: 30px 30px 0px 30px;
+  /* background-color: white; */
+  /* min-height: 100vh; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* font-size: calc(10px + 2vmin); */
   color: white;
 }
 
@@ -36,3 +51,45 @@
     transform: rotate(360deg);
   }
 }
+
+/* ************************************************************************** */
+
+/* .theHeader{ */
+  /* border-style: solid; */
+  /* margin: 0 auto; */
+  
+/* } */
+
+.content{
+  /* max-width: 350px; */
+  /* margin: 0 auto; */
+  /* border-style: solid; */
+  /* border-color: green; */
+  display: grid;
+  grid-template-rows: 200px;
+}
+
+.semicircle{
+  /* border-style: solid; */
+  /* padding-bottom: -100px; */
+  z-index: 0;
+  grid-row: 1/2;
+}
+
+/* .buttons{ */
+  /* border-style: solid; */
+  /* border-color: blue; */
+  /* grid-column: 2/4; */
+  /* display: grid; */
+
+/* } */
+
+/* .aButton{ */
+  /* border-style: solid; */
+  /* border-color: red; */
+  /* margin: 5px; */
+  /* padding-left: 40px; */
+  /* padding-right: 40px; */
+  /* padding-top: -10px; */
+  /* padding-bottom: -10px; */
+/* } */
