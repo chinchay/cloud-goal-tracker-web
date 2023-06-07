@@ -97,6 +97,7 @@ def api(request):
 # @api_view(['GET', 'POST'])
 @api_view( ['POST'] )
 def updateDB(request):
+    print("---")
     if (request.method == "POST"):
         jsonData = json.loads(request.body)
         habitNumber = jsonData["habitNumber"]

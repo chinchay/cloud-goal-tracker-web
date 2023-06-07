@@ -25,8 +25,8 @@ function UpdateDatabase(habitNumber){
     console.log(habitNumber)
     const data = { "habitNumber" : habitNumber }
 
-    const url = 'http://localhost:8000/api/updateDB/'
-    // const url = 'http://127.0.0.1:8000/api/updateDB/'
+    // const url = 'http://localhost:8000/api/updateDB/'
+    const url = 'http://192.168.0.218:12345/api/updateDB/'
     
     axios.post(url, data)
     .then(

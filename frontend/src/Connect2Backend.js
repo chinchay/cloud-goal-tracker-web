@@ -11,15 +11,16 @@ export function Request2Backend(){
     // await sleep(1000)
     // Instead, I added `time.sleep(2)` in the backend/, in views.api()  ;)
 
-    const url = 'http://localhost:8000/api/'
-    // const url = 'http://127.0.0.1:8000/api/updateDB/'
+    // const url = 'http://localhost:8000/api/'
+    const url = 'http://192.168.0.218:12345/api/'
 
     useEffect(() => {
         axios
             .get(url)
             .then(
                 response => {
-                    setResponse(response.data)            
+                    // console.log(response)
+                    setResponse(response.data)
                 }
             )
             .catch(
