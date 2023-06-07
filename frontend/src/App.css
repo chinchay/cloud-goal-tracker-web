@@ -83,7 +83,8 @@
 
 /* } */
 
-/* .aButton{ */
+.aButton{
+  z-index: 1;
   /* border-style: solid; */
   /* border-color: red; */
   /* margin: 5px; */
@@ -91,12 +92,13 @@
   /* padding-right: 40px; */
   /* padding-top: -10px; */
   /* padding-bottom: -10px; */
-/* } */
+}
 
 
 .smallStats{
   max-width: 100%;
-  max-height: 100%;
+  min-height: 400px;
+  /* max-height: 100%; */
   /* overflow: hidden; */
   /* width: 100%; */
 

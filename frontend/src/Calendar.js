@@ -6,7 +6,10 @@ export function BuildCalendar(props){
 
     if (props.response === null) {
         return(
-            <div className='habitName'>Loading...</div>
+            <div className='smallStats'>
+                <div className='habitName'>Loading...</div>
+            </div>
+            
         )
     } else {
         const listHeatMap = []

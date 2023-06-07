@@ -12,5 +12,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("tracker/", views.tracker, name="tracker"),
     path("about/", views.about, name="about"),
-    path("api/", views.api, name="api")
+    path("api/", views.api, name="api"),
+    path("api/updateDB/", views.updateDB, name="updateDB")
 ]

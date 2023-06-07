@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "atomic",
     "corsheaders", # see message(1) at the bottom
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "corsheaders.middleware.CorsMiddleware",  # see message(1) at the bottom
+    # "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'habit_tracker.urls'
@@ -108,7 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Denver' # for Mountain Time?
 
 USE_I18N = True
 
@@ -128,7 +131,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ################################################################################
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+     'http://localhost:3000',
+     "http://192.168.0.218:3000"
 ]
 # Message(1):
 # To avoid responses being blocked, we use `CORS_ORIGIN_WHITELIST` (see above).

@@ -12,6 +12,7 @@ export function Request2Backend(){
     // Instead, I added `time.sleep(2)` in the backend/, in views.api()  ;)
 
     const url = 'http://localhost:8000/api/'
+    // const url = 'http://127.0.0.1:8000/api/updateDB/'
 
     useEffect(() => {
         axios

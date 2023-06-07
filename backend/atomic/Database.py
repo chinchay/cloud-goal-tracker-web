@@ -88,8 +88,11 @@ class Database:
         df[partitionKey] = pd.to_datetime(df.date)
         df = df.sort_values(by=[partitionKey]).reset_index(drop=True)
 
-        df.replace("True", True,  inplace=True)
-        df.replace("False", False, inplace=True)
+        # convert to the required format string for calendar chart in frontend
+        df[partitionKey] = df.date.dt.strftime("%Y/%m/%d")
+
+        # df.replace("True", True,  inplace=True)
+        # df.replace("False", False, inplace=True)
 
         return df
     #
