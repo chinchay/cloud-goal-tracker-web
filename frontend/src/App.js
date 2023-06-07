@@ -21,7 +21,7 @@ function ShowProgressCircle(props){
     }
 }
 
-function UpdateDatabase(habitNumber){
+async function UpdateDatabase(habitNumber){
     console.log(habitNumber)
     const data = { "habitNumber" : habitNumber }
 
@@ -36,8 +36,11 @@ function UpdateDatabase(habitNumber){
     )
 
     // refresh to update charts
-    window.location.reload(false) 
-    
+    window.location.reload(false)    
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function App() {
@@ -66,9 +69,11 @@ function App() {
                 <div className="row mb-1">
                     <div className="col-4"></div>
                         <div className="col-4 d-grid gap-2">
-                            <Button className="aButton" variant="secondary" onClick={ () => {UpdateDatabase(0)} }>Scriptures Reading</Button>
-                            <Button className="aButton" variant="secondary" onClick={ () => {UpdateDatabase(1)} }>Exercising</Button>
-                            <Button className="aButton" variant="secondary" onClick={ () => {UpdateDatabase(2)} }>Journal Writing</Button>
+                            {/* TODO */}
+                            {/* REFACTOR TO AVOID HARD CODING THE LISTHABIT. I HAD REDO AND PUT IN THE CORRECT ORDER THE FOLLOWING: */}
+                            <Button className="aButton" variant="secondary" onClick={ () => {UpdateDatabase(0)} }>Exercising</Button>
+                            <Button className="aButton" variant="secondary" onClick={ () => {UpdateDatabase(1)} }>Journal Writing</Button>
+                            <Button className="aButton" variant="secondary" onClick={ () => {UpdateDatabase(2)} }>Scriptures Reading</Button>
                             <Button className="aButton" variant="secondary" onClick={ () => {SetShowStats(true)} }>See my stats</Button>
                         </div>
                     <div className="col"></div>

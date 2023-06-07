@@ -12,19 +12,28 @@ from datetime import date
 
 ################################################################################
 # As global variables:
-# tableName = "atomic_table"
-# database = Database(tableName)
-# _df = database.BuildPandas()
-# listHabit = _df.drop(["date"], axis=1).columns.to_list()
+################################################################################
+tableName = "atomic_table"
+database = Database(tableName)
+df = database.BuildPandas()
+
+# data = {'Exercising': {0: '1', 1: '1', 2: '0', 3: '0'}, 'Journal_Writing': {0: 0, 1: '0', 2: '1', 3: '1'}, 'date': {0: '2023/06/06', 1: '2023/05/10', 2: '2023/05/15', 3: '2023/05/31'}, 'Scriptures_Reading': {0: '1', 1: '0', 2: '1', 3: '0'}}
+# df = pd.DataFrame(data)
+
+listHabit = df.drop(["date"], axis=1).columns.to_list()
+print(df)
+print("")
+print(df.to_dict())
+
 ################################################################################
 
 ############################################################################
 # you will need to remove this part later
 ############################################################################
-data = {'date': {'0': '2023/05/06', '1': '2023/05/02', '2': '2023/06/06', '3': '2023/05/31', '4': '2023/06/01'}, 'Scriptures_Reading': {'0': '1', '1': '1', '2': '1', '3': '1', '4': '1'}, 'Exercising': {'0': '1', '1': '1', '2': '0', '3': '1', '4': '1'}, 'Journal_Writing': {'0': '1', '1': '1', '2': '1', '3': '0', '4': '1'}}
-df = pd.DataFrame(data)
-df["date"] = pd.to_datetime(df.date)
-listHabit = df.drop(["date"], axis=1).columns.to_list()
+# data = {'date': {'0': '2023/05/06', '1': '2023/05/02', '2': '2023/06/06', '3': '2023/05/31', '4': '2023/06/01'}, 'Scriptures_Reading': {'0': '1', '1': '1', '2': '1', '3': '1', '4': '1'}, 'Exercising': {'0': '1', '1': '1', '2': '0', '3': '1', '4': '1'}, 'Journal_Writing': {'0': '1', '1': '1', '2': '1', '3': '0', '4': '1'}}
+# df = pd.DataFrame(data)
+# df["date"] = pd.to_datetime(df.date)
+# listHabit = df.drop(["date"], axis=1).columns.to_list()
 ############################################################################
 
 
@@ -53,25 +62,10 @@ def getTodayPercentage(df, listHabit):
     return percentage
 
 def api(request):
-    ##### tableName = "atomic_table"
-    ##### database = Database(tableName)
-    # df = database.BuildPandas()
-    # data = df.to_dict()
-
-    ############################################################################
-    # you will need to remove this part later
-    ############################################################################
-    # data = {'date': {'0': '2023/05/06', '1': '2023/05/02', '2': '2023/06/06', '3': '2023/05/31', '4': '2023/06/01'}, 'Scriptures_Reading': {'0': '1', '1': '1', '2': '1', '3': '1', '4': '1'}, 'Exercising': {'0': '1', '1': '1', '2': '0', '3': '1', '4': '1'}, 'Journal_Writing': {'0': '1', '1': '1', '2': '1', '3': '0', '4': '1'}}
-    # df = pd.DataFrame(data)
-    # df["date"] = pd.to_datetime(df.date)
-    ############################################################################
-
-    # # convert to the required format string
-    # key = "date"
-    # df[key] = df.date.dt.strftime("%Y/%m/%d")
+    df = database.BuildPandas()
+    print(df)
 
     partitionKey = "date"
-    # listHabit = df.drop([partitionKey], axis=1).columns.to_list()
     listRecord = []
     for habit in listHabit:
         df_habit = pd.DataFrame()
@@ -80,23 +74,24 @@ def api(request):
         dict_habit = df_habit.to_dict("records")
         listRecord.append(dict_habit)
         #
-        
     #
     percentage = getTodayPercentage(df, listHabit)
     # percentage = 0
     data = {"listHabit":listHabit, "listRecord":listRecord, "percentage":percentage}
 
-    # print(pd.to_datetime(df.date, format='%Y%m%d'))
-
-
     sleep(2)
 
     return JsonResponse(data, safe=False)
+#
+
 
 # @csrf_exempt
 # @api_view(['GET', 'POST'])
 @api_view( ['POST'] )
 def updateDB(request):
+    
+    df = database.BuildPandas()
+
     print("---")
     if (request.method == "POST"):
         jsonData = json.loads(request.body)
@@ -104,40 +99,68 @@ def updateDB(request):
         print("habitNumber", habitNumber)
         print("listHabit[habitNumber]", listHabit[habitNumber])
 
-        # todayString = pd.to_datetime("today").strftime("%Y/%m/%d")
-        # todayString = pd.to_datetime("today").strftime("%Y-%m-%d")
         todayString = date.today().strftime("%Y/%m/%d")
 
-        item = {
-            "date"                 : todayString,
-            listHabit[habitNumber] : 1,
-        }
 
 
+
+        ########################################################################
+        # Updating cloud database
+        ########################################################################
+        aSlice = df[ df["date"] == todayString ].drop(["date"], axis=1)
+
+        if ( len(aSlice) == 0 ):
+            item = {
+                "date"                 : todayString,
+                listHabit[habitNumber] : "1",
+            }
+        else:
+            n = len(listHabit)
+            new_val = []
+            for i in range(n):
+                if (i != habitNumber):
+                    val = aSlice[ listHabit[i] ].tolist()[0]
+                else:
+                    val = "1"
+                #
+                new_val.append(val)
+            #
+
+            item = {}
+            item["date"] = todayString
+            for i in range(n):
+                item[ listHabit[i] ] = new_val[i]
+            #
+        #
+        print("item: ")
+        print(item)
+        print("")
         
-        # database.PutItem(item)
+        database.PutItem(item)
+        ########################################################################
+
 
         ########################################################################
         # you will need to remove this part later
         ########################################################################
-        print(pd.DataFrame(data))
-        n = len(data["date"])
-        if ( len( df[ df["date"] == todayString ]) == 0 ):
-            data["date"][n] = todayString
-            data[ listHabit[habitNumber] ][n] = 1
-            print("again A:")
-            print(pd.DataFrame(data))
-        else:
-            row = int( df[df["date"] == todayString].index[0]  )
-            col = listHabit[habitNumber]
+        # print(pd.DataFrame(data))
+        # n = len(data["date"])
+        # if ( len( df[ df["date"] == todayString ]) == 0 ):
+        #     data["date"][n] = todayString
+        #     data[ listHabit[habitNumber] ][n] = 1
+        #     print("again A:")
+        #     print(pd.DataFrame(data))
+        # else:
+        #     row = int( df[df["date"] == todayString].index[0]  )
+        #     col = listHabit[habitNumber]
 
-            df_slice = df.iloc[row].copy()
-            df_slice[col] = 1
-            df.iloc[row] = df_slice
+        #     df_slice = df.iloc[row].copy()
+        #     df_slice[col] = 1
+        #     df.iloc[row] = df_slice
 
-            # df.iloc[row][col] = 1
-            print("again B:")
-            print(df)
+        #     # df.iloc[row][col] = 1
+        #     print("again B:")
+        #     print(df)
         ########################################################################
 
 

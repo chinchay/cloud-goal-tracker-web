@@ -20,6 +20,10 @@ export function BuildCalendar(props){
         const month = new Date().getMonth()
         // console.log(month)
         const startDate = new Date()
+
+        console.log("today is: ")
+        console.log(startDate)
+
         startDate.setMonth( month - props.months)
         // console.log(startDate)
 

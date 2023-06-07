@@ -81,6 +81,10 @@ class Database:
         # return df
         #
         response = self._Retrieve()
+
+        print("response['Items']: ")
+        print(response['Items'])
+
         df = pd.DataFrame( response['Items'] )
 
         partitionKey = "date"
@@ -90,6 +94,8 @@ class Database:
 
         # convert to the required format string for calendar chart in frontend
         df[partitionKey] = df.date.dt.strftime("%Y/%m/%d")
+
+        df.fillna(0, inplace=True)
 
         # df.replace("True", True,  inplace=True)
         # df.replace("False", False, inplace=True)

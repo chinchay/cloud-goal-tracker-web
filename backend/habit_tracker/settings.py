@@ -112,8 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# TIME_ZONE = 'UTC'
-TIME_ZONE = 'America/Denver' # for Mountain Time?
+TIME_ZONE = 'UTC'
+# TIME_ZONE = 'America/Denver' # for Mountain Time?
 
 USE_I18N = True
 
