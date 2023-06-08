@@ -4,7 +4,7 @@ The purpose of the *Habit Tracker* web application is to help you with maintaini
 
 # How it works
 
-The *Habit Tracker* web app relies on Django and React for the backend and frontend parts, respectively. By using the Boto3 Python package, the backend connects to a AWS DynamoDB table to retrieve information and sends the processed data to the frontend for visualization and interaction purposes. The frontend will capture new entries from the user and will ask the backend to send that information back to the cloud database. The interface has been designed to show on the screen updated information from the cloud service using a progress bar for the current day and calendars to have overall visuals of the accomplishements.
+The *Habit Tracker* web app relies on Django and React for the backend and frontend parts, respectively. By using the Boto3 Python package, the backend connects to a [AWS DynamoDB](https://docs.aws.amazon.com/dynamodb/) table to retrieve information and sends the processed data to the frontend for visualization and interaction purposes. The frontend will capture new entries from the user and will ask the backend to send that information back to the cloud database. The interface has been designed to show on the screen updated information from the cloud service using a progress bar for the current day and calendars to have overall visuals of the accomplishements.
 
 A demonstration of the software running and a walkthrough of the code can be found [here]().
 
@@ -19,6 +19,8 @@ A demonstration of the software running and a walkthrough of the code can be fou
     * A progress circle showing the percentage of the today's accomplishements. It will automatically update whenever the user reports a completed task.
     * A group of buttons to update today's goals. For example, pressing the button `Journal writing` will indicate that this task has been finished and the app will save that information in the cloud database. The last button `See my stats` will pop up a React modal displaying the current-year achievements calendar for each habit.
     * Small calendars for each habit for the last couple of months
+
+![](images/interface.png)
 
 ## Django backend
 
@@ -107,6 +109,8 @@ __Required reading for building this project__:
 * [Axios vs. fetch()](https://blog.logrocket.com/axios-vs-fetch-best-http-requests/)
 * [Calendar heatmap react component](https://reactjsexample.com/a-customizable-calendar-heatmap-react-component-built-on-svg/)
 * [React modal](https://react-bootstrap.github.io/docs/components/modal) and [React button](https://react-bootstrap.github.io/docs/components/buttons/)
+* [Amazon DynamoDB database](https://us-east-2.console.aws.amazon.com/dynamodbv2/home?region=us-east-2#service)
+* [DynamoDB operations performed locally](https://www.youtube.com/watch?v=Al1xwYhQ-BM&ab_channel=SoumilShah)
 
 __Nice to watch__:
 * [Deploy Django into Production with Kubernetes, Docker, & Github Actions.](https://www.youtube.com/watch?v=NAOsLaB6Lfc&ab_channel=CodingEntrepreneurs)
