@@ -63,7 +63,7 @@ def getTodayPercentage(df, listHabit):
 
 def api(request):
     df = database.BuildPandas()
-    print(df)
+    
 
     partitionKey = "date"
     listRecord = []
@@ -78,6 +78,10 @@ def api(request):
     percentage = getTodayPercentage(df, listHabit)
     # percentage = 0
     data = {"listHabit":listHabit, "listRecord":listRecord, "percentage":percentage}
+
+    print("from api(request):")
+    print(df)
+    print("percentage: ", percentage)
 
     sleep(2)
 
