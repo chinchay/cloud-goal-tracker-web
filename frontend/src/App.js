@@ -9,18 +9,6 @@ import { Request2Backend } from './Connect2Backend';
 import { BuildCalendar } from './Calendar';
 import axios from "axios"
 
-function ShowProgressCircle(props){
-    if (props.response === null) {
-        return(
-            <div className='habitName'>Loading...</div>
-        )
-    } else {
-        return(
-            <ProgressCircle percentage={props.response.percentage}/>
-        )
-    }
-}
-
 async function UpdateDatabase(habitNumber){
     console.log(habitNumber)
     const data = { "habitNumber" : habitNumber }
@@ -39,9 +27,9 @@ async function UpdateDatabase(habitNumber){
     window.location.reload(false)    
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+// function sleep(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
 function App() {
 
@@ -63,7 +51,7 @@ function App() {
             <section className='content'>
 
                 <div className='semicircle'>
-                    <ShowProgressCircle response={response}/>
+                    <ProgressCircle response={response}/>
                 </div>
 
                 <div className="row mb-1">
