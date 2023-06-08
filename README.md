@@ -6,7 +6,7 @@ The purpose of the *Habit Tracker* web application is to help you with maintaini
 
 The *Habit Tracker* web app relies on Django and React for the backend and frontend parts, respectively. By using the Boto3 Python package, the backend connects to a [AWS DynamoDB](https://docs.aws.amazon.com/dynamodb/) table to retrieve information and sends the processed data to the frontend for visualization and interaction purposes. The frontend will capture new entries from the user and will ask the backend to send that information back to the cloud database. The interface has been designed to show on the screen updated information from the cloud service using a progress bar for the current day and calendars to have overall visuals of the accomplishements.
 
-A demonstration of the software running and a walkthrough of the code can be found [here]().
+A demonstration of the software running and a walkthrough of the code can be found [here](https://youtu.be/eHJdCw4zRY0).
 
 <!-- Detailed specifications of this program can be found [here](). -->
 
